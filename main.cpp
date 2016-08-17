@@ -2,7 +2,7 @@ using <iostream>
 
 int main()
 {
-    cout << "Test";.
+    cout << "Test";
 
     return 0;
 }
