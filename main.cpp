@@ -1,8 +1,9 @@
-using <iostream>
+#include <iostream>
 
 int main()
 {
-    cout << "Test";
+    std::cout << "Test";
+    std::cin.get();
 
     return 0;
 }
