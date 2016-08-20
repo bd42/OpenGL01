@@ -4,35 +4,35 @@
 // =======  Object  =======
 // ========================
 
-void Object::SetPosition(float _x, float y, float _z)
+void Object::SetPosition(float _x, float _y, float _z)
 {
     pos[0] = _x;
     pos[1] = _y;
     pos[2] = _z;
 }
 
-void Object::Move(float _x, float y, float _z)
+void Object::Move(float _x, float _y, float _z)
 {
     pos[0] += _x;
     pos[1] += _y;
     pos[2] += _z;
 }
 
-void Object::SetAnchor(float _x, float y, float _z)
+void Object::SetAnchor(float _x, float _y, float _z)
 {
     anchor[0] = _x;
     anchor[1] = _y;
     anchor[2] = _z;
 }
 
-void Object::MoveAnchor(float _x, float y, float _z)
+void Object::MoveAnchor(float _x, float _y, float _z)
 {
     anchor[0] += _x;
     anchor[1] += _y;
     anchor[2] += _z;
 }
 
-void Object::SetRotation(float _x, float y, float _z)
+void Object::SetRotation(float _x, float _y, float _z)
 {
     rot[0] = _x;
     while(rot[0] >= 360.0f)
@@ -47,7 +47,7 @@ void Object::SetRotation(float _x, float y, float _z)
     { rot[2] -= 360.0f; }
 }
 
-void Object::Rotate(float _x, float y, float _z)
+void Object::Rotate(float _x, float _y, float _z)
 {
     rot[0] += _x;
     while(rot[0] >= 360.0f)
@@ -62,7 +62,7 @@ void Object::Rotate(float _x, float y, float _z)
     { rot[2] -= 360.0f; }
 }
 
-void Object::SetScale(float _x, float y, float _z)
+void Object::SetScale(float _x, float _y, float _z)
 {
     scale[0] = _x;
     scale[1] = _y;
