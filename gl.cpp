@@ -26,8 +26,16 @@ void initRendering()
 {
 	// Makes 3D drawing work when something is in front of something else
 	glEnable(GL_DEPTH_TEST);
-	// Allows us to use colors
+
+	// Makes it possible to use colors
 	glEnable(GL_COLOR_MATERIAL);
+	
+	// Allows usage of lights
+	glEnable(GL_LIGHTING);
+	
+	// Add first light to the scene
+	glEnable(GL_LIGHT0);
+	glEnable(GL_LIGHT1);
 }
 
 // Called when the window is resized
@@ -40,7 +48,7 @@ void handleResize(int w, int h)
 	
 	// Set the camera perspective
 	glLoadIdentity(); // Reset the camera
-	gluPerspective(60.0,                  // The camera angle
+	gluPerspective(45.0,                  // The camera angle
 				   (double)w / (double)h, // The width-to-height ratio
 				   1.0,                   // The near z clipping coordinate
 				   200.0);                // The far z clipping coordinate
@@ -49,7 +57,26 @@ void handleResize(int w, int h)
 // Draws the 3D scene
 void drawScene()
 {
-	glClearColor(0.0f, 0.9f, 0.7f, 1.0f);
+	// Set background color
+	glClearColor(0.0f, 0.0f, 0.3f, 1.0f);
+
+	// Set shade model
+	glShadeModel(GL_SMOOTH);
+
+	// Add ambient light
+    GLfloat ambientColor[] = {0.0f, 0.0f, 0.0f, 1.0f};
+    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientColor);
+
+	//Add positioned light
+    GLfloat lightColor0[] = {0.0f, 0.5f, 0.5f, 1.0f};
+    GLfloat lightPos0[] = {4.0f, 0.0f, 8.0f, 1.0f};
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, lightColor0);
+    glLightfv(GL_LIGHT0, GL_POSITION, lightPos0);
+
+	GLfloat lightColor1[] = {1.0f, 0.0f, 0.0f, 1.0f};
+    GLfloat lightPos1[] = {-8.0f, 0.0f, -4.0f, 0.0f};
+    glLightfv(GL_LIGHT1, GL_DIFFUSE, lightColor1);
+    glLightfv(GL_LIGHT1, GL_POSITION, lightPos1);
 
 	// Clear information from last draw
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
