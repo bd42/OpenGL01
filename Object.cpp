@@ -1,4 +1,6 @@
-#include "h/Object.h"
+#include "h/Object.hpp"
+
+#include <iostream>
 
 #include <GL/glut.h>
 
@@ -9,31 +11,21 @@
 void Object::SetRotation(float _x, float _y, float _z)
 {
     rot[0] = _x;
-    while(rot[0] >= 360.0f)
-    { rot[0] -= 360.0f; }
+    while(rot[0] >= 360.0f) { rot[0] -= 360.0f; }
+    while(rot[0] < 360.0f) { rot[0] += 360.0f; }
     
     rot[1] = _y;
-    while(rot[1] >= 360.0f)
-    { rot[1] -= 360.0f; }
+    while(rot[1] >= 360.0f) { rot[1] -= 360.0f; }
+    while(rot[1] < 360.0f) { rot[1] += 360.0f; }
     
     rot[2] = _z;
-    while(rot[2] >= 360.0f)
-    { rot[2] -= 360.0f; }
+    while(rot[2] >= 360.0f) { rot[2] -= 360.0f; }
+    while(rot[2] < 360.0f) { rot[2] += 360.0f; }
 }
 
 void Object::Rotate(float _x, float _y, float _z)
 {
-    rot[0] += _x;
-    while(rot[0] >= 360.0f)
-    { rot[0] -= 360.0f; }
-    
-    rot[1] += _y;
-    while(rot[1] >= 360.0f)
-    { rot[1] -= 360.0f; }
-    
-    rot[2] += _z;
-    while(rot[2] >= 360.0f)
-    { rot[2] -= 360.0f; }
+    SetRotation(rot[0] + _x, rot[1] + _y, rot[2] + _z);
 }
 
 void Object::CalculateOffset()
@@ -71,11 +63,7 @@ void Cube::SetPosition(float _x, float _y, float _z)
 
 void Cube::Move(float _x, float _y, float _z)
 {
-    pos[0] += _x;
-    pos[1] += _y;
-    pos[2] += _z;
-
-    calculateOffset = true;
+    SetPosition(pos[0] + _x, pos[1] + _y, pos[2] + _z);
 }
 
 void Cube::SetAnchor(float _x, float _y, float _z)
@@ -89,11 +77,7 @@ void Cube::SetAnchor(float _x, float _y, float _z)
 
 void Cube::MoveAnchor(float _x, float _y, float _z)
 {
-    anchor[0] += _x;
-    anchor[1] += _y;
-    anchor[2] += _z;
-
-    calculateOffset = true;
+    SetPosition(anchor[0] + _x, anchor[1] + _y, anchor[2] + _z);
 }
 
 void Cube::SetColor(int _vertex, float _r, float _g, float _b)
@@ -224,7 +208,10 @@ void Cube::Draw()
     glPushMatrix();
 
     glTranslatef(anchor[0], anchor[1], anchor[2]);
-    glRotatef(-1.0f, rot[0], rot[1], rot[2]);
+
+    if(rot[0] > 0.0f) glRotatef(rot[0], 1.0f, 0.0f, 0.0f);
+    if(rot[1] > 0.0f) glRotatef(rot[1], 0.0f, 1.0f, 0.0f);
+    if(rot[2] > 0.0f) glRotatef(rot[2], 0.0f, 0.0f, 1.0f);
 
     glBegin(GL_TRIANGLES);
     for (int i = 0; i < 6; i++)
@@ -310,4 +297,6 @@ void Cube::DrawVertex(int _vertex)
     glColor3f(col[_vertex][0], col[_vertex][1], col[_vertex][2]);
     glNormal3f(norm[_vertex][0], norm[_vertex][1], norm[_vertex][2]);
     glVertex3f(vert[_vertex][0], vert[_vertex][1], vert[_vertex][2]);
+
+    //std::cout << _vertex << std::endl;
 }

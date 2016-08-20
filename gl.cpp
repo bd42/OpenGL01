@@ -1,6 +1,6 @@
-#include "h/gl.h"
-#include "h/misc.h"
-#include "h/render.h"
+#include "h/gl.hpp"
+#include "h/misc.hpp"
+#include "h/render.hpp"
 
 #include <iostream>
 

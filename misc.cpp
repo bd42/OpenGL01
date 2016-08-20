@@ -1,5 +1,5 @@
-#include "h/misc.h"
-#include "h/gl.h"
+#include "h/misc.hpp"
+#include "h/gl.hpp"
 
 #include <GL/glut.h>
 
