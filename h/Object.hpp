@@ -25,16 +25,18 @@ class Cube : public Object
         float sizeHalf[3];
         float col[8][3];
         float vert[8][3];
+
+        #define NORMLEN 0.57735026919f
         const float norm[8][3] =
         {
-            { -1.0f, -1.0f, -1.0f },
-            { -1.0f, -1.0f,  1.0f },
-            { -1.0f,  1.0f, -1.0f },
-            { -1.0f,  1.0f,  1.0f },
-            {  1.0f, -1.0f, -1.0f },
-            {  1.0f, -1.0f,  1.0f },
-            {  1.0f,  1.0f, -1.0f },
-            {  1.0f,  1.0f,  1.0f }
+            { -NORMLEN, -NORMLEN, -NORMLEN },
+            { -NORMLEN, -NORMLEN,  NORMLEN },
+            { -NORMLEN,  NORMLEN, -NORMLEN },
+            { -NORMLEN,  NORMLEN,  NORMLEN },
+            {  NORMLEN, -NORMLEN, -NORMLEN },
+            {  NORMLEN, -NORMLEN,  NORMLEN },
+            {  NORMLEN,  NORMLEN, -NORMLEN },
+            {  NORMLEN,  NORMLEN,  NORMLEN }
         };
         
         void CalculateSize();
