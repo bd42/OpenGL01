@@ -1,7 +1,5 @@
 #include "h/Object.hpp"
 
-#include <iostream>
-
 #include <GL/glut.h>
 
 // ======================== 
@@ -297,6 +295,4 @@ void Cube::DrawVertex(int _vertex)
     glColor3f(col[_vertex][0], col[_vertex][1], col[_vertex][2]);
     glNormal3f(norm[_vertex][0], norm[_vertex][1], norm[_vertex][2]);
     glVertex3f(vert[_vertex][0], vert[_vertex][1], vert[_vertex][2]);
-
-    //std::cout << _vertex << std::endl;
 }
