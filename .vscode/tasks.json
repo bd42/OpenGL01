@@ -3,5 +3,5 @@
     "command": "g++",
     "isShellCommand": true,
     "showOutput": "always",
-    "args": ["main.cpp", "funcGL.cpp", "funcMisc.cpp", "-std=c++11", "-obin/OpenGL01", "-lGL", "-lGLU", "-lglut"]
+    "args": ["main.cpp", "misc.cpp", "gl.cpp", "render.cpp", "Object.cpp", "-std=c++11", "-obin/OpenGL01", "-lGL", "-lGLU", "-lglut"]
 }
