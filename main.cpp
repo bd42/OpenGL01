@@ -1,4 +1,4 @@
-#include "funcMisc.h"
+#include "h/misc.h"
 
 int main(int argc, char** argv)
 {
