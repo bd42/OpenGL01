@@ -1,12 +1,12 @@
-#include "h/Object.hpp"
+#include "h/ObjectGL.hpp"
 
 #include <GL/glut.h>
 
 // ======================== 
-// =======  Object  =======
+// ======  ObjectGL  ======
 // ========================
 
-void Object::SetRotation(float _x, float _y, float _z)
+void ObjectGL::SetRotation(float _x, float _y, float _z)
 {
     rot[0] = _x;
     while(rot[0] >= 360.0f) { rot[0] -= 360.0f; }
@@ -21,12 +21,12 @@ void Object::SetRotation(float _x, float _y, float _z)
     while(rot[2] < 360.0f) { rot[2] += 360.0f; }
 }
 
-void Object::Rotate(float _x, float _y, float _z)
+void ObjectGL::Rotate(float _x, float _y, float _z)
 {
     SetRotation(rot[0] + _x, rot[1] + _y, rot[2] + _z);
 }
 
-void Object::CalculateOffset()
+void ObjectGL::CalculateOffset()
 {
     posOffset[0] = pos[0] - anchor[0];
     posOffset[1] = pos[1] - anchor[1];
@@ -37,10 +37,10 @@ void Object::CalculateOffset()
 }
 
 // ======================== 
-// ========  Cube  ========
+// =======  CubeGL  =======
 // ========================
 
-Cube::Cube(float _x, float _y, float _z, float _w, float _h, float _d)
+CubeGL::CubeGL(float _x, float _y, float _z, float _w, float _h, float _d)
 {
     SetPosition(_x, _y, _z);
     SetAnchor(_x, _y, _z);
@@ -50,8 +50,11 @@ Cube::Cube(float _x, float _y, float _z, float _w, float _h, float _d)
     SetSize(_w, _h, _d);
 }
 
-void Cube::SetPosition(float _x, float _y, float _z)
+void CubeGL::SetPosition(float _x, float _y, float _z, bool _setAnchor/* = true*/)
 {
+    if(_setAnchor)
+        SetAnchor(_x, _y, _z);
+
     pos[0] = _x;
     pos[1] = _y;
     pos[2] = _z;
@@ -59,12 +62,18 @@ void Cube::SetPosition(float _x, float _y, float _z)
     calculateOffset = true;
 }
 
-void Cube::Move(float _x, float _y, float _z)
+void CubeGL::Move(float _x, float _y, float _z, bool _moveAnchor/* = true*/)
 {
-    SetPosition(pos[0] + _x, pos[1] + _y, pos[2] + _z);
+    if(_moveAnchor)
+    {
+        MoveAnchor(_x, _y, _z);
+        SetPosition(pos[0] + _x, pos[1] + _y, pos[2] + _z, false);
+    }
+    else
+        SetPosition(pos[0] + _x, pos[1] + _y, pos[2] + _z, _moveAnchor);
 }
 
-void Cube::SetAnchor(float _x, float _y, float _z)
+void CubeGL::SetAnchor(float _x, float _y, float _z)
 {
     anchor[0] = _x;
     anchor[1] = _y;
@@ -73,12 +82,12 @@ void Cube::SetAnchor(float _x, float _y, float _z)
     calculateOffset = true;
 }
 
-void Cube::MoveAnchor(float _x, float _y, float _z)
+void CubeGL::MoveAnchor(float _x, float _y, float _z)
 {
     SetPosition(anchor[0] + _x, anchor[1] + _y, anchor[2] + _z);
 }
 
-void Cube::SetColor(int _vertex, float _r, float _g, float _b)
+void CubeGL::SetColor(int _vertex, float _r, float _g, float _b)
 {
     if(_r < 0.0f)
         col[_vertex][0] = 0.0f;
@@ -102,7 +111,7 @@ void Cube::SetColor(int _vertex, float _r, float _g, float _b)
         col[_vertex][2] = _b;
 }
 
-void Cube::SetColor(float _r, float _g, float _b)
+void CubeGL::SetColor(float _r, float _g, float _b)
 {
     for (int i = 0; i < 8; i++)
     {
@@ -110,7 +119,7 @@ void Cube::SetColor(float _r, float _g, float _b)
     }
 }
 
-void Cube::SetSize(float _w, float _h, float _d)
+void CubeGL::SetSize(float _w, float _h, float _d)
 {
     sizeBase[0] = (_w > 0.0f ? _w : 0.0f);
     sizeBase[1] = (_h > 0.0f ? _h : 0.0f);
@@ -119,7 +128,7 @@ void Cube::SetSize(float _w, float _h, float _d)
     calculateSize = true;
 }
 
-void Cube::SetScale(float _x, float _y, float _z)
+void CubeGL::SetScale(float _x, float _y, float _z)
 {
     scale[0] = _x;
     scale[1] = _y;
@@ -128,14 +137,14 @@ void Cube::SetScale(float _x, float _y, float _z)
     calculateSize = true;
 }
 
-void Cube::SetScale(float _scale)
+void CubeGL::SetScale(float _scale)
 {
     scale[0] = scale[1] = scale[2] = _scale;
 
     calculateSize = true;
 }
 
-void Cube::Scale(float _scale)
+void CubeGL::Scale(float _scale)
 {
     scale[0] *= _scale;
     scale[1] *= _scale;
@@ -144,7 +153,7 @@ void Cube::Scale(float _scale)
     calculateSize = true;
 }
 
-void Cube::CalculateSize()
+void CubeGL::CalculateSize()
 {
     sizeHalf[0] = sizeBase[0] * scale[0] / 2.0f;
     sizeHalf[1] = sizeBase[1] * scale[1] / 2.0f;
@@ -154,7 +163,7 @@ void Cube::CalculateSize()
     calculateVertices = true;
 }
 
-void Cube::CalculateVertices()
+void CubeGL::CalculateVertices()
 {
     // Left Bottom Back
     vert[0][0] = posOffset[0] - sizeHalf[0];
@@ -197,7 +206,7 @@ void Cube::CalculateVertices()
     vert[7][2] = posOffset[2] + sizeHalf[2];
 }
 
-void Cube::Draw()
+void CubeGL::Draw()
 {
     if(calculateSize) CalculateSize();
     if(calculateOffset) CalculateOffset();
@@ -221,7 +230,7 @@ void Cube::Draw()
     glPopMatrix();
 }
 
-void Cube::DrawFace(int _face)
+void CubeGL::DrawFace(int _face)
 {
     switch (_face)
     {
@@ -290,7 +299,7 @@ void Cube::DrawFace(int _face)
     }
 }
 
-void Cube::DrawVertex(int _vertex)
+void CubeGL::DrawVertex(int _vertex)
 {
     glColor3f(col[_vertex][0], col[_vertex][1], col[_vertex][2]);
     glNormal3f(norm[_vertex][0], norm[_vertex][1], norm[_vertex][2]);
