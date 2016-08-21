@@ -1,4 +1,4 @@
-class Object
+class ObjectGL
 {
     protected:
         float pos[3];
@@ -20,9 +20,21 @@ class Object
         float GetX() { return pos[0]; };
         float GetY() { return pos[1]; };
         float GetZ() { return pos[2]; };
+
+        virtual void SetPosition(float _x, float _y, float _z, bool _setAnchor = true) = 0;
+        virtual void Move(float _x, float _y, float _z, bool _moveAnchor = true) = 0;
+        virtual void SetAnchor(float _x, float _y, float _z) = 0;
+        virtual void MoveAnchor(float _x, float _y, float _z) = 0;
+        virtual void SetColor(int _vertex, float _r, float _g, float _b) = 0;
+        virtual void SetColor(float _r, float _g, float _b) = 0;
+        virtual void SetSize(float _w, float _h, float _d) = 0;
+        virtual void SetScale(float _x, float _y, float _z) = 0;
+        virtual void SetScale(float _scale) = 0;
+        virtual void Scale(float _scale) = 0;
+        virtual void Draw() = 0;
 };
 
-class Cube : public Object
+class CubeGL : public ObjectGL
 {
     private:
         float sizeBase[3];
@@ -50,11 +62,9 @@ class Cube : public Object
         void DrawVertex(int _vertex);
 
     public:
-        Cube(float _x, float _y, float _z, float _w, float _h, float _d);
+        CubeGL(float _x, float _y, float _z, float _w, float _h, float _d);
         void SetPosition(float _x, float _y, float _z, bool _setAnchor = true);
-        //void SetPosition(float _x, float _y, float _z);
         void Move(float _x, float _y, float _z, bool _moveAnchor = true);
-        //void Move(float _x, float _y, float _z);
         void SetAnchor(float _x, float _y, float _z);
         void MoveAnchor(float _x, float _y, float _z);
         void SetColor(int _vertex, float _r, float _g, float _b);
