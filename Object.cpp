@@ -50,8 +50,11 @@ Cube::Cube(float _x, float _y, float _z, float _w, float _h, float _d)
     SetSize(_w, _h, _d);
 }
 
-void Cube::SetPosition(float _x, float _y, float _z)
+void Cube::SetPosition(float _x, float _y, float _z, bool _setAnchor)
 {
+    if(_setAnchor)
+        SetAnchor(_x, _y, _z);
+
     pos[0] = _x;
     pos[1] = _y;
     pos[2] = _z;
@@ -59,10 +62,23 @@ void Cube::SetPosition(float _x, float _y, float _z)
     calculateOffset = true;
 }
 
-void Cube::Move(float _x, float _y, float _z)
+/*void Cube::SetPosition(float _x, float _y, float _z)
 {
+    SetPosition(_x, _y, _z, true);
+}*/
+
+void Cube::Move(float _x, float _y, float _z, bool _moveAnchor)
+{
+    if(_moveAnchor)
+        MoveAnchor(_x, _y, _z);
+    
     SetPosition(pos[0] + _x, pos[1] + _y, pos[2] + _z);
 }
+
+/*void Cube::Move(float _x, float _y, float _z)
+{
+    Move(_x, _y, _z, true);
+}*/
 
 void Cube::SetAnchor(float _x, float _y, float _z)
 {

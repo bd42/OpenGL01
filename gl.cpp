@@ -56,7 +56,7 @@ void handleResize(int w, int h)
 void drawScene()
 {
 	// Set background color
-	glClearColor(0.0f, 0.0f, 0.2f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.1f, 1.0f);
 
 	// Set shade model
 	glShadeModel(GL_SMOOTH);
@@ -66,12 +66,12 @@ void drawScene()
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientColor);
 
 	//Add positioned light
-    GLfloat lightColor0[] = {0.0f, 0.7f, 0.7f, 1.0f};
+    GLfloat lightColor0[] = {0.0f, 0.8f, 0.8f, 1.0f};
     GLfloat lightPos0[] = {4.0f, 0.0f, 8.0f, 1.0f};
     glLightfv(GL_LIGHT0, GL_DIFFUSE, lightColor0);
     glLightfv(GL_LIGHT0, GL_POSITION, lightPos0);
 
-	GLfloat lightColor1[] = {1.0f, 0.3f, 0.3f, 1.0f};
+	GLfloat lightColor1[] = {1.0f, 0.5f, 0.5f, 1.0f};
     GLfloat lightPos1[] = {-8.0f, 0.0f, -4.0f, 0.0f};
     glLightfv(GL_LIGHT1, GL_DIFFUSE, lightColor1);
     glLightfv(GL_LIGHT1, GL_POSITION, lightPos1);

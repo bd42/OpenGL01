@@ -16,6 +16,10 @@ class Object
     public:
         void SetRotation(float _x, float _y, float _z);
         void Rotate(float _x, float _y, float _z);
+
+        float GetX() { return pos[0]; };
+        float GetY() { return pos[1]; };
+        float GetZ() { return pos[2]; };
 };
 
 class Cube : public Object
@@ -47,8 +51,10 @@ class Cube : public Object
 
     public:
         Cube(float _x, float _y, float _z, float _w, float _h, float _d);
-        void SetPosition(float _x, float _y, float _z);
-        void Move(float _x, float _y, float _z);
+        void SetPosition(float _x, float _y, float _z, bool _setAnchor = true);
+        //void SetPosition(float _x, float _y, float _z);
+        void Move(float _x, float _y, float _z, bool _moveAnchor = true);
+        //void Move(float _x, float _y, float _z);
         void SetAnchor(float _x, float _y, float _z);
         void MoveAnchor(float _x, float _y, float _z);
         void SetColor(int _vertex, float _r, float _g, float _b);
